@@ -1,44 +1,36 @@
 package com.pt;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
+import com.pt.jo.DongWu;
+import com.pt.po.Matrix;
 import com.pt.utils.ConnAndroid;
-import com.pt.utils.Screen;
+import com.pt.utils.MatrixUtils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		ConnAndroid.connAnd();
-		int[] dpi = dpi();
+		ConnAndroid.dpi();
+		//建立xxl矩阵
+		Matrix matrix = MatrixUtils.createMatrix();
+		
+		matrixMove(matrix);
+		
 	}
 
-	public static int[] dpi() {
-		File imageFile = Screen.getImgFile();
-		int screenWidth = 0;
-		int screenHeight = 0;
-		try {
-			try {
-				BufferedImage image = ImageIO.read(imageFile);
-				screenWidth = image.getWidth();
-				screenHeight = image.getHeight();
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("手机分辨率检测失败，请检查电脑与手机连接和手机设置。");
-			}
-			if (screenWidth == 0 || screenHeight == 0) {
-				System.out.println("手机分辨率检测失败，请检查电脑与手机连接和手机设置。");
-			}
-			System.out.println("检测到您的手机分辨率为" + screenWidth + "x" + screenHeight);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new int[]{screenWidth, screenHeight};
+	private static void matrixMove(Matrix matrix) {
+		DongWu[][] matrixXY = matrix.getMatrixXY();
 		
+		for (int i = 0; i < matrixXY.length; i++) {
+			for (int j = 0; j < matrixXY.length; j++) {
+				
+			}
+		}
 		
 	}
+
+	
+
+	
 
 	
 	
