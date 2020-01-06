@@ -1,44 +1,90 @@
 package com.pt;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import com.pt.utils.ConnAndroid;
-import com.pt.utils.Screen;
+import com.pt.config.Constant;
+import com.pt.jo.DongWu;
+import com.pt.po.Matrix;
+import com.pt.utils.MatrixUtils;
+import com.pt.utils.ObjClonerSeiz;
 
 public class Main {
 
 	public static void main(String[] args) {
-		ConnAndroid.connAnd();
-		int[] dpi = dpi();
+//		ConnAndroid.connAnd();
+//		ConnAndroid.dpi();
+		//建立xxl矩阵
+		Matrix matrix = MatrixUtils.createMatrix();
+		
+		matrixMove(matrix);
+		
 	}
 
-	public static int[] dpi() {
-		File imageFile = Screen.getImgFile();
-		int screenWidth = 0;
-		int screenHeight = 0;
+	private static void matrixMove(Matrix matrix) {
+		
+		Map<int[], Matrix> matrixMap = new HashMap<int[], Matrix>();
+		for (int i = 0; i < Constant.Y_COUNT; i++) {
+			for (int j = 0; j < Constant.X_COUNT; j++) {
+				exchange(i, j, matrix, matrixMap);
+				break;
+			}
+			break;
+		}
+		
+	}
+
+	private static void exchange(int i, int j, Matrix matrix, Map<int[], Matrix> matrixMap) {
 		try {
-			try {
-				BufferedImage image = ImageIO.read(imageFile);
-				screenWidth = image.getWidth();
-				screenHeight = image.getHeight();
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("手机分辨率检测失败，请检查电脑与手机连接和手机设置。");
+			
+			Matrix cloneMatrixX = ObjClonerSeiz.CloneObj(matrix);
+			Matrix cloneMatrixY = ObjClonerSeiz.CloneObj(matrix);
+			
+			DongWu dongWuX = cloneMatrixX.getDongWu(i, j);
+			dongWuX.setX(i + 1);
+			DongWu dongWuAddX = cloneMatrixX.getDongWu(i + 1, j);
+			dongWuAddX.setX(i);
+			cloneMatrixX.getMatrixXY()[i][j] = dongWuAddX;
+			cloneMatrixX.getMatrixXY()[i + 1][j] = dongWuX;
+			
+			Boolean flag = eliminate(i, j, cloneMatrixX);
+			if (flag){
+				matrixMap.put(new int[]{i, j, 0}, cloneMatrixX);
 			}
-			if (screenWidth == 0 || screenHeight == 0) {
-				System.out.println("手机分辨率检测失败，请检查电脑与手机连接和手机设置。");
-			}
-			System.out.println("检测到您的手机分辨率为" + screenWidth + "x" + screenHeight);
+			
+			
+			
+			DongWu dongWuY = cloneMatrixY.getDongWu(i, j);
+			dongWuY.setY(j + 1);
+			DongWu dongWuAddY = cloneMatrixY.getDongWu(i, j + 1);
+			dongWuAddY.setY(j);
+			cloneMatrixY.getMatrixXY()[i][j] = dongWuAddY;
+			cloneMatrixY.getMatrixXY()[i][j + 1] = dongWuY;
+			
+			matrixMap.put(new int[]{i, j, 1}, cloneMatrixY);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new int[]{screenWidth, screenHeight};
-		
-		
 	}
+
+	/**
+	 * 判断此点周围可否消除
+	 * @param i
+	 * @param j
+	 * @param cloneMatrixX
+	 * @return
+	 */
+	private static Boolean eliminate(int i, int j, Matrix cloneMatrixX) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+
+	
 
 	
 	

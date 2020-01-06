@@ -11,7 +11,7 @@ public class Screen {
 			imageFile.delete();
 		}
 		
-		Process process = Exec.exec("shell screencap -p /sdcard/ascreen.png");
+		Process process = Exec.exec("shell screencap -p /sdcard/screen.png");
 		Process process2 = Exec.exec("pull /sdcard/screen.png " + Constant.TEMP_PATH);
 		if (process == null || process2 == null) {
 			System.out.println("图片获取失败，请检查电脑与手机连接和手机设置。");
