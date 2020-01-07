@@ -34,7 +34,7 @@ public class TestDemo {
 			int height = image.getHeight();
 			int width = image.getWidth();
 			System.out.println(width + "x" + height);
-			printfImg(image, 0, 1145);
+			printfImg(image, 360, 545);
 //			printfImg(image, 120, 545);
 //			printfImg(image, 120, 665);
 //			printfImg(image, 120, 785);

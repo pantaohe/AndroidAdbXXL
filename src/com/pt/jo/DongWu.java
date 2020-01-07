@@ -9,6 +9,7 @@ public class DongWu implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
+	private boolean hasIce;
 	
 //	private RGB[] rgbs = new RGB[5];
 	
@@ -173,5 +174,11 @@ public class DongWu implements Serializable{
 	}
 	public void setRgbOut(RGB rgbOut) {
 		this.rgbOut = rgbOut;
+	}
+	public boolean isHasIce() {
+		return hasIce;
+	}
+	public void setHasIce(boolean hasIce) {
+		this.hasIce = hasIce;
 	}
 }

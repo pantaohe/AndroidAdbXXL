@@ -25,6 +25,6 @@ public class Constant {
 	
 	public static final int PX_MOVE = 8;
 	public static final int RGB_OUT_PX = 30;//外面部分像素点个数
-	public static final int COLOUR_ERROR = 45;//颜色误差值
+	public static final int COLOUR_ERROR = 37;//颜色误差值
 
 }
