@@ -13,7 +13,25 @@ public class RGB implements Serializable{
 		this.g = rgb >> 8 & 0xff;
 		this.b = rgb & 0xff;
 	}
+	public RGB(int[] rgbs, int par){
+		this.r = rgbs[0]/par;
+		this.g = rgbs[1]/par;
+		this.b = rgbs[2]/par;
+	}
 
+	public int getSumRGB(){
+		return this.r + this.g + this.b;
+	}
+	public int getSumRG(){
+		return this.r + this.g;
+	}
+	public int getSumRB(){
+		return this.r + this.b;
+	}
+	public int getSumGB(){
+		return this.g + this.b;
+	}
+	
 	public int getR() {
 		return r;
 	}

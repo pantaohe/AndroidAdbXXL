@@ -1,15 +1,14 @@
 package com.pt;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.pt.config.Constant;
 import com.pt.jo.DongWu;
 import com.pt.po.Matrix;
-import com.pt.utils.MatrixUtils;
-import com.pt.utils.ObjClonerSeiz;
+import com.pt.utils.ConnAndroid;
+import com.pt.utils.Exec;
+import com.pt.utils.matrix.MatrixCreate;
+import com.pt.utils.matrix.MatrixMove;
+import com.pt.utils.matrix.MatrixScore;
 
 public class Main {
 
@@ -17,69 +16,33 @@ public class Main {
 //		ConnAndroid.connAnd();
 //		ConnAndroid.dpi();
 		//建立xxl矩阵
-		Matrix matrix = MatrixUtils.createMatrix();
+		Matrix matrix = MatrixCreate.createMatrix();
+		System.out.println(matrix.toStringName());
+//		Map<int[], Matrix> matrixMap = MatrixMove.matrixMove(matrix);
+//		
+//		int[] matrixTopScore = MatrixScore.matrixTopScore(matrixMap);
+//		
+//		swipe(matrixTopScore, matrix);
 		
-		matrixMove(matrix);
-		
+
 	}
 
-	private static void matrixMove(Matrix matrix) {
-		
-		Map<int[], Matrix> matrixMap = new HashMap<int[], Matrix>();
-		for (int i = 0; i < Constant.Y_COUNT; i++) {
-			for (int j = 0; j < Constant.X_COUNT; j++) {
-				exchange(i, j, matrix, matrixMap);
-				break;
-			}
-			break;
+	private static void swipe(int[] matrixTopScore, Matrix matrix) {
+
+		DongWu dongWu = matrix.getDongWu(matrixTopScore[0], matrixTopScore[1]);
+		DongWu dongWuX = null;
+		if (matrixTopScore[2] == 0) {
+			dongWuX = matrix.getDongWu(matrixTopScore[0] + 1, matrixTopScore[1]);
+		}else {
+			dongWuX = matrix.getDongWu(matrixTopScore[0], matrixTopScore[1] + 1);
 		}
-		
+		Exec.exec("shell input swipe " + dongWu.getPxXY() + dongWuX.getPxXY() + "200");
+		System.out.println("得分：" + matrixTopScore[3]);
 	}
 
-	private static void exchange(int i, int j, Matrix matrix, Map<int[], Matrix> matrixMap) {
-		try {
-			
-			Matrix cloneMatrixX = ObjClonerSeiz.CloneObj(matrix);
-			Matrix cloneMatrixY = ObjClonerSeiz.CloneObj(matrix);
-			
-			DongWu dongWuX = cloneMatrixX.getDongWu(i, j);
-			dongWuX.setX(i + 1);
-			DongWu dongWuAddX = cloneMatrixX.getDongWu(i + 1, j);
-			dongWuAddX.setX(i);
-			cloneMatrixX.getMatrixXY()[i][j] = dongWuAddX;
-			cloneMatrixX.getMatrixXY()[i + 1][j] = dongWuX;
-			
-			Boolean flag = eliminate(i, j, cloneMatrixX);
-			if (flag){
-				matrixMap.put(new int[]{i, j, 0}, cloneMatrixX);
-			}
-			
-			
-			
-			DongWu dongWuY = cloneMatrixY.getDongWu(i, j);
-			dongWuY.setY(j + 1);
-			DongWu dongWuAddY = cloneMatrixY.getDongWu(i, j + 1);
-			dongWuAddY.setY(j);
-			cloneMatrixY.getMatrixXY()[i][j] = dongWuAddY;
-			cloneMatrixY.getMatrixXY()[i][j + 1] = dongWuY;
-			
-			matrixMap.put(new int[]{i, j, 1}, cloneMatrixY);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
-	/**
-	 * 判断此点周围可否消除
-	 * @param i
-	 * @param j
-	 * @param cloneMatrixX
-	 * @return
-	 */
-	private static Boolean eliminate(int i, int j, Matrix cloneMatrixX) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	

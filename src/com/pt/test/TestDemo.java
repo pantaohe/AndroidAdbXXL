@@ -10,80 +10,49 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 
 import com.pt.Main;
+import com.pt.config.Constant;
 
 public class TestDemo {
 	public static void main(String[] args) {
-//		try {
-			File file = new File("resources/img/temp/xxl.jpg");
+		
+		try {
+			File file = new File("resources/img/temp/screen2.png");
 			
-//			Main.CreateMatrix(file);
-			
-//			BufferedImage image = ImageIO.read(file);
+			BufferedImage image = ImageIO.read(file);
 
-//			int height = image.getHeight();
-//			int width = image.getWidth();
-//			System.out.println(width + "x" + height);
-//
-//			for (int i = 120; i < 960; i = i + 120) {
-//				for (int j = 670; j < 1390; j = j + 120) {
-//					System.out.println(i/120 + "列" + (j-550)/120 + "行:");
-//					int rgb = image.getRGB(i + 7, j + 7);
-//					System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//					rgb = image.getRGB(i + 112, j + 7);
-//					System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//					rgb = image.getRGB(i + 7, j + 112);
-//					System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//					rgb = image.getRGB(i + 112, j + 112);
-//					System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//					rgb = image.getRGB(i + 59, j + 59);
-//					System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//					System.out.println();
-//				}
-//			}
+			int height = image.getHeight();
+			int width = image.getWidth();
+			System.out.println(width + "x" + height);
+			printfImg(image, 0, 1145);
+//			printfImg(image, 120, 545);
+//			printfImg(image, 120, 665);
+//			printfImg(image, 120, 785);
+//			printfImg(image, 240, 665);
+//			printfImg(image, 360, 665);
+//			printfImg(image, 360, 1505);
 			
-//			BufferedImage cut = cut(file, 120, 670, 840, 720);
-//			BufferedImage cut = cut(file, 120, 670, 120, 120);
-//			int rgb = cut.getRGB(0, 0);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(119, 0);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(0, 119);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(119, 119);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(59, 59);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			System.out.println();
-//			
-//			cut = cut(file, 360, 790, 120, 120);
-//			rgb = cut.getRGB(0, 0);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(119, 0);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(0, 119);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(119, 119);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
-//			rgb = cut.getRGB(59, 59);
-//			System.out.println("R=" + (rgb >> 16 & 0xff) + ";G=" + (rgb >> 8 & 0xff) + ";B=" + (rgb & 0xff));
 			
-//			File fileJq = new File("resources/img/temp/tian.jpg");
+//			File fileJq = new File("resources/img/temp/tian.png");
 //			if (!fileJq.exists()) {
 //				fileJq.createNewFile();
 //			}
-//			
+			
+//			BufferedImage cut = cut(file, 120, 545, 840, 1080);
 //			//bufferedimage 转换成 inputstream
 //			ByteArrayOutputStream bs = new ByteArrayOutputStream(); 
-//			ImageOutputStream imOut = ImageIO.createImageOutputStream(bs); 
-//			ImageIO.write(cut, "jpg", imOut); 
+//			ImageOutputStream imOut = ImageIO.createImageOutputStream(bs);
+//			ImageIO.write(cut, "png", imOut); 
 //			InputStream inputStream = new ByteArrayInputStream(bs.toByteArray());
 //
 //			OutputStream outStream = new FileOutputStream(fileJq);
@@ -98,9 +67,44 @@ public class TestDemo {
 //			outStream.close();
 
 
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	private static void printfImg(BufferedImage image, int i, int j) {
+		System.out.println((j-550)/120 + "行" + (i/120 + 1) + "列");
+		
+		int[] pxSumIn = new int[3];
+		int[] pxSumOut = new int[3];
+		int rgb = 0;
+		int in = 0;
+		int out = 0;
+		long time = System.currentTimeMillis();
+		for (int j2 = Constant.PX_MOVE; j2 < Constant.SPEED - Constant.PX_MOVE; j2 += 2) {
+			for (int k = Constant.PX_MOVE; k < Constant.SPEED - Constant.PX_MOVE; k += 2) {
+				rgb = image.getRGB(i + j2, j + k);
+//				if (j2 < Constant.PX_MOVE || j2 > Constant.SPEED - Constant.PX_MOVE || 
+//					k < Constant.PX_MOVE || k > Constant.SPEED - Constant.PX_MOVE) {
+				if (j2 + k < Constant.RGB_OUT_PX || Constant.SPEED - j2 + k < Constant.RGB_OUT_PX ||
+						Constant.SPEED - k + j2 < Constant.RGB_OUT_PX || Constant.SPEED * 2 - k - j2 < Constant.RGB_OUT_PX) {
+					out ++;
+					pxSumOut[0] += rgb >> 16 & 0xff;
+					pxSumOut[1] += rgb >> 8 & 0xff;
+					pxSumOut[2] += rgb & 0xff;
+				}else {
+					in ++;
+					pxSumIn[0] += rgb >> 16 & 0xff;
+					pxSumIn[1] += rgb >> 8 & 0xff;
+					pxSumIn[2] += rgb & 0xff;
+				}
+			}
+		}
+		System.out.println("内层：R=" + pxSumIn[0]/in + ";G=" + pxSumIn[1]/in + ";B=" + pxSumIn[2]/in);
+		System.out.println("外层：R=" + pxSumOut[0]/out + ";G=" + pxSumOut[1]/out + ";B=" + pxSumOut[2]/out);
+		System.out.println("out=" + out + "in=" + in);
+		System.out.println(System.currentTimeMillis() - time);
 	}
 
 
@@ -130,7 +134,7 @@ public class TestDemo {
 			 * 返回包含所有当前已注册 ImageReader 的 Iterator，这些 ImageReader 声称能够解码指定格式。
 			 * 参数：formatName - 包含非正式格式名称 .（例如 "jpeg" 或 "tiff"）等 。
 			 */
-			Iterator<ImageReader> it = ImageIO.getImageReadersByFormatName("jpg");
+			Iterator<ImageReader> it = ImageIO.getImageReadersByFormatName("png");
 			/**因为是内存中的图片对象，所以没有后缀，就给一个jpg后缀，我给png后缀出错，不知是不是我的BufferedImage对象不对*/
 			ImageReader reader = it.next();
 			// 获取图片流

@@ -17,6 +17,19 @@ public class Matrix implements Serializable{
 		}
 	}
 	
+	public Boolean moveDown(int x, int y) {
+		try {
+			DongWu dongWu = this.getDongWu(x, y);
+			if (x < Constant.Y_COUNT - 1 && dongWu.moveDown()) {
+				this.getMatrixXY()[x + 1][y] = dongWu;
+				return true;
+			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
+	
+	
 	public DongWu[][] getMatrixXY() {
 		return matrixXY;
 	}
@@ -47,18 +60,12 @@ public class Matrix implements Serializable{
 			String hx = "";
 			String h0 = "";
 			String h1 = "";
-			String h2 = "";
-			String h3 = "";
-			String h4 = "";
 			for (DongWu dongWu : dongWus) {
 				hx += dongWu.getId() + "\t\t\t\t";
-				h0 += dongWu.getRgbs()[0].toString() + "\t";
-				h1 += dongWu.getRgbs()[1].toString() + "\t";
-				h2 += dongWu.getRgbs()[2].toString() + "\t";
-				h3 += dongWu.getRgbs()[3].toString() + "\t";
-				h4 += dongWu.getRgbs()[4].toString() + "\t";
+				h0 += dongWu.getRgbIn().toString() + "\t";
+				h1 += dongWu.getRgbOut().toString() + "\t";
 			}
-			matrixToString += hx + "\r" + h0 + "\r" + h1 + "\r" + h2 + "\r" + h3 + "\r" + h4 + "\r\r";
+			matrixToString += hx + "\r" + h0 + "\r" + h1 + "\r\r";
 		}
 		return matrixToString;
 	}
