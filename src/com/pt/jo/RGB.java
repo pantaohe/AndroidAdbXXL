@@ -13,6 +13,11 @@ public class RGB implements Serializable{
 		this.g = rgb >> 8 & 0xff;
 		this.b = rgb & 0xff;
 	}
+	public RGB(int[] rgbs){
+		this.r = rgbs[0];
+		this.g = rgbs[1];
+		this.b = rgbs[2];
+	}
 	public RGB(int[] rgbs, int par){
 		this.r = rgbs[0]/par;
 		this.g = rgbs[1]/par;

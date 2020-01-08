@@ -11,10 +11,9 @@ public class DongWu implements Serializable{
 	private String name;
 	private boolean hasIce;
 	
-//	private RGB[] rgbs = new RGB[5];
-	
 	private RGB rgbIn;
 	private RGB rgbOut;
+	private RGB rgbOuterRing;
 	
 	private int x;
 	private int y;
@@ -25,38 +24,37 @@ public class DongWu implements Serializable{
 	public DongWu(DongWu dongWu) {
 		this.id = dongWu.getId();
 		this.name = dongWu.getName();
-//		this.rgbs = dongWu.getRgbs();
 	}
 	public DongWu(BufferedImage image, int i, int j) {
 		this.pxXY = (i + Constant.SPEED/2) + " " + (j + Constant.SPEED/2) + " ";
 		this.x = (j - Constant.Y_START)/Constant.SPEED;
 		this.y = (i - Constant.X_START)/Constant.SPEED;
-//		this.rgbs[0] = new RGB(image.getRGB(i + Constant.PX_MOVE, 						j + Constant.PX_MOVE));//左上角
-//		this.rgbs[1] = new RGB(image.getRGB(i + Constant.SPEED - Constant.PX_MOVE - 1, 	j + Constant.PX_MOVE));//右上角
-//		this.rgbs[2] = new RGB(image.getRGB(i + Constant.PX_MOVE, 						j + Constant.SPEED - Constant.PX_MOVE - 1));//左下角
-//		this.rgbs[3] = new RGB(image.getRGB(i + Constant.SPEED - Constant.PX_MOVE - 1, 	j + Constant.SPEED - Constant.PX_MOVE - 1));//右下角
-//		this.rgbs[4] = new RGB(image.getRGB(i + Constant.SPEED/2 - 1, 					j + Constant.SPEED/2 - 1));//中间
 		
-		getAvgRGB(image, i, j);
-		
+		setAvgRGB(image, i, j);
 	}
 
-	public void getAvgRGB(BufferedImage image, int i, int j) {
+	public void setAvgRGB(BufferedImage image, int i, int j) {
 		int[] pxSumIn = new int[3];
 		int[] pxSumOut = new int[3];
+		int[] pxSumOuterRing = new int[3];//一个像素点的外圈
 		int rgb = 0;
 		int in = 0;
 		int out = 0;
-		for (int l = 0; l < Constant.SPEED; l += 2) {
-			for (int k = 0; k < Constant.SPEED; k += 2) {
+		int outer = 0;
+		for (int l = 0; l < Constant.SPEED; l += 1) {
+			for (int k = 0; k < Constant.SPEED; k += 1) {
 				rgb = image.getRGB(i + l, j + k);
-				if (l + k < Constant.RGB_OUT_PX || Constant.SPEED - l + k < Constant.RGB_OUT_PX ||
-						Constant.SPEED - k + l < Constant.RGB_OUT_PX || Constant.SPEED * 2 - k - l < Constant.RGB_OUT_PX) {
+				if (equal(l, k, Constant.OUTER_RING)) {
+					outer++;
+					pxSumOuterRing[0] += rgb >> 16 & 0xff;
+					pxSumOuterRing[1] += rgb >> 8 & 0xff;
+					pxSumOuterRing[2] += rgb & 0xff;
+				}else if(getOutScope(l, k, Constant.PX_MOVE, Constant.RGB_OUT_PX)) {
 					out ++;
 					pxSumOut[0] += rgb >> 16 & 0xff;
 					pxSumOut[1] += rgb >> 8 & 0xff;
 					pxSumOut[2] += rgb & 0xff;
-				}else {
+				}else if (getInScope(l, k, Constant.RGB_IN_PX)){
 					in ++;
 					pxSumIn[0] += rgb >> 16 & 0xff;
 					pxSumIn[1] += rgb >> 8 & 0xff;
@@ -66,8 +64,21 @@ public class DongWu implements Serializable{
 		}
 		this.rgbIn = new RGB(pxSumIn, in);
 		this.rgbOut = new RGB(pxSumOut, out);
-//		System.out.println("内层：R=" + pxSumIn[0]/in + ";G=" + pxSumIn[1]/in + ";B=" + pxSumIn[2]/in);
+		this.rgbOuterRing = new RGB(pxSumOuterRing, outer);
+//		System.out.println("内层：R=" + pxSumIn[0]/in + ";G=" + pxSumIn[1]/in + ";B=" + pxSumIn[2]/in);范围
 //		System.out.println("外层：R=" + pxSumOut[0]/out + ";G=" + pxSumOut[1]/out + ";B=" + pxSumOut[2]/out);
+	}
+	private boolean getInScope(int l, int k, int rgbOutPx) {
+		return Math.abs(l - Constant.SPEED/2) < rgbOutPx && Math.abs(k - Constant.SPEED/2) < rgbOutPx;
+	}
+	private boolean equal(int l, int k, int par) {
+		return l == par || k == par || (Constant.SPEED - l) == par || (Constant.SPEED - k) == par;
+	}
+	//主要算左右两边，上下两边因为不同关卡的起点像素位置不同，所以上下两边多去掉了一个pxMove
+	private boolean getOutScope(int l, int k, int pxMove, int rgbOutPx) {
+		return (l + k < rgbOutPx || Constant.SPEED - l + k < rgbOutPx || 
+					Constant.SPEED - k + l < rgbOutPx || Constant.SPEED * 2 - k - l < rgbOutPx) && 
+				(l > pxMove && k > pxMove * 2 && (Constant.SPEED - l) > pxMove && (Constant.SPEED - k) > pxMove * 2);
 	}
 	
 	public Boolean moveUp() {
@@ -116,14 +127,6 @@ public class DongWu implements Serializable{
 	}
 	
 	
-//	public RGB[] getRgbs() {
-//		return rgbs;
-//	}
-//
-//	public void setRgbs(RGB[] rgbs) {
-//		this.rgbs = rgbs;
-//	}
-
 	public String getName() {
 		return name;
 	}
@@ -136,14 +139,6 @@ public class DongWu implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-//	public String toStringRGB() {
-//		String rgbString = name + ":\r";
-//		for (RGB rgb : rgbs) {
-//			rgbString += rgb.getR() + "," + rgb.getG() + "," + rgb.getB() + "\r"; 
-//		}
-//		return rgbString;
-//	}
 	
 	public int getX() {
 		return x;
@@ -180,5 +175,11 @@ public class DongWu implements Serializable{
 	}
 	public void setHasIce(boolean hasIce) {
 		this.hasIce = hasIce;
+	}
+	public RGB getRgbOuterRing() {
+		return rgbOuterRing;
+	}
+	public void setRgbOuterRing(RGB rgbOuterRing) {
+		this.rgbOuterRing = rgbOuterRing;
 	}
 }

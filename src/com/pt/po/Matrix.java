@@ -60,12 +60,14 @@ public class Matrix implements Serializable{
 			String hx = "";
 			String h0 = "";
 			String h1 = "";
+			String h2 = "";
 			for (DongWu dongWu : dongWus) {
 				hx += dongWu.getId() + "\t\t\t\t";
 				h0 += dongWu.getRgbIn().toString() + "\t";
 				h1 += dongWu.getRgbOut().toString() + "\t";
+				h2 += dongWu.getRgbOuterRing().toString() + "\t";
 			}
-			matrixToString += hx + "\r" + h0 + "\r" + h1 + "\r\r";
+			matrixToString += hx + "\r" + h0 + "\r" + h1 + "\r" + h2 + "\r\r";
 		}
 		return matrixToString;
 	}
