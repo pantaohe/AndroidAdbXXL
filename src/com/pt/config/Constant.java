@@ -2,7 +2,7 @@ package com.pt.config;
 
 public class Constant {
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	public static final String TEMP_PATH = "resources/img/temp";
 	

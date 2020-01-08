@@ -14,7 +14,7 @@ public class MatrixScore {
 
 	public static int[] matrixTopScore(Map<int[], Matrix> matrixMap) {
 		int score = 0;
-		int[] xyz = null;
+		int[] xyz = new int[3];
 		for (Entry<int[], Matrix> entry : matrixMap.entrySet()) {
 			Matrix matrix = entry.getValue();
 			int score2 = score(matrix);
