@@ -18,32 +18,32 @@ public class CreateDongWuColour {
 	static BufferedImage image = null;
 	static OutputStream fileTextOut = null;
 	public static void main(String[] args) throws IOException {
-		row[0] = "";
+		File file = new File("resources/img/temp/screen3.png");
+		File fileText = new File("resources/text/第三关小鸡.txt");
+		row[0] = "56";
 		row[1] = "";
-		row[2] = "26";
-		row[3] = "135";
-		row[4] = "46";
-		row[5] = "5";
-		row[6] = "4";
-		row[7] = "";
+		row[2] = "1";
+		row[3] = "36";
+		row[4] = "12";
+		row[5] = "24";
+		row[6] = "1";
+		row[7] = "47";
 		row[8] = "";
-		File file = new File("resources/img/temp/screen1.png");
-		File fileText = new File("resources/text/第一关青蛙.txt");
 		
 		
 		
 		image = ImageIO.read(file);
 		fileTextOut = new FileOutputStream(fileText);
 		
-		String s = "		row[0] = \"\";\r\n" + 
+		String s = "		row[0] = \"56\";\r\n" + 
 				"		row[1] = \"\";\r\n" + 
-				"		row[2] = \"26\";\r\n" + 
-				"		row[3] = \"135\";\r\n" + 
-				"		row[4] = \"46\";\r\n" + 
-				"		row[5] = \"5\";\r\n" + 
-				"		row[6] = \"4\";\r\n" + 
-				"		row[7] = \"\";\r\n" + 
-				"		row[8] = \"\";\r\n";
+				"		row[2] = \"1\";\r\n" + 
+				"		row[3] = \"36\";\r\n" + 
+				"		row[4] = \"12\";\r\n" + 
+				"		row[5] = \"24\";\r\n" + 
+				"		row[6] = \"1\";\r\n" + 
+				"		row[7] = \"47\";\r\n" + 
+				"		row[8] = \"\"";
 		fileTextOut.write(s.getBytes());
 		action();
 		fileTextOut.flush();

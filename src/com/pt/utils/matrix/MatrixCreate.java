@@ -19,7 +19,7 @@ public class MatrixCreate {
 		if (matrix.toStringName().contains("未知")) {
 			File imgFile = null;
 			if (Constant.DEBUG){
-				imgFile = new File("resources/img/temp/screen1.png");
+				imgFile = new File("resources/img/temp/screen3.png");
 			}else{
 				imgFile = Screen.getImgFile();
 			}
@@ -56,19 +56,19 @@ public class MatrixCreate {
 		if(colourRrror(rgbIn, 21, 39, 69)){
 			dongWu.setId("TK");
 			dongWu.setName("天空黑");
-		}else if (colourRrror(rgbIn, 195, 160, 60)){//rgbIn, 185, 155, 55
+		}else if (colourRrror(rgbIn, 190, 158, 63)){//rgbIn, 185, 155, 55
 			dongWu.setId("XJ");
 			dongWu.setName("小鸡");
 		}else if (colourRrror(rgbIn, 50, 155, 50)) {
 			dongWu.setId("QW");
 			dongWu.setName("青蛙");
-		}else if (colourRrror(rgbIn, 190, 50, 45)) {
+		}else if (colourRrror(rgbIn, 190, 45, 40)) {
 			dongWu.setId("HL");
 			dongWu.setName("狐狸");
 		}else if (colourRrror(rgbIn, 160, 80, 22)) {
 			dongWu.setId("XX");
 			dongWu.setName("小熊");
-		}else if (colourRrror(rgbIn, 55, 150, 210)) {//rgbIn, 55, 150, 210)
+		}else if (colourRrror(rgbIn, 55, 148, 210)) {//rgbIn, 55, 150, 210)
 			if (colourRrror(rgbOut, 25, 41, 69) || colourRrror(rgbOut, 70, 120, 165) || colourRrror(rgbOuterRing, 94, 160, 206)) {
 				dongWu.setId("NN");
 				dongWu.setName("奶牛");
