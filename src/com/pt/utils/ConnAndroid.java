@@ -8,15 +8,22 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import com.pt.config.Constant;
+
 public class ConnAndroid {
 	
 	public static int[] dpi() {
-		File imageFile = Screen.getImgFile();
+		File imgFile = null;
+		if (Constant.DEBUG){
+			imgFile = new File(Constant.DEBUG_IMG_PATH);
+		}else{
+			imgFile = Screen.getImgFile();
+		}
 		int screenWidth = 0;
 		int screenHeight = 0;
 		try {
 			try {
-				BufferedImage image = ImageIO.read(imageFile);
+				BufferedImage image = ImageIO.read(imgFile);
 				screenWidth = image.getWidth();
 				screenHeight = image.getHeight();
 			} catch (Exception e) {
@@ -27,6 +34,14 @@ public class ConnAndroid {
 				System.out.println("手机分辨率检测失败，请检查电脑与手机连接和手机设置。");
 			}
 			System.out.println("检测到您的手机分辨率为" + screenWidth + "x" + screenHeight);
+			try {
+				Constant.WIDTH_PX = screenWidth;
+				Constant.HEIGHT_PX = screenHeight;
+				Constant.SPEED = screenWidth / 9;
+			} catch (Exception e) {
+				System.out.println("手机屏幕像素计算异常");
+				e.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -38,7 +38,13 @@ public class MatrixMove {
 			cloneMatrixX.getMatrixXY()[i][j] = dongWuAddX;
 			cloneMatrixX.getMatrixXY()[i + 1][j] = dongWuX;
 
-			if (!dongWuX.getId().equals("TK") && !dongWuAddX.getId().equals("TK") && (eliminate(i, j, cloneMatrixX) || eliminate(i + 1, j, cloneMatrixX))){
+			String xId = dongWuX.getId();
+			String xaddId = dongWuAddX.getId();
+			boolean xbixu = !xId.equals("TK") && !xaddId.equals("TK");
+			boolean xkeyi = xId.equals("WZ") || xaddId.equals("WZ");
+			xkeyi = xkeyi || (dongWuX.isHasJQ() && dongWuAddX.isHasJQ());
+			xkeyi = xkeyi || eliminate(i, j, cloneMatrixX) || eliminate(i + 1, j, cloneMatrixX);
+			if (xbixu && xkeyi){
 				matrixMap.put(new int[]{i, j, 0}, cloneMatrixX);
 			}else {
 				cloneMatrixX = null;
@@ -51,7 +57,15 @@ public class MatrixMove {
 			cloneMatrixY.getMatrixXY()[i][j] = dongWuAddY;
 			cloneMatrixY.getMatrixXY()[i][j + 1] = dongWuY;
 
-			if (!dongWuY.getId().equals("TK") && !dongWuAddY.getId().equals("TK") && (eliminate(i, j, cloneMatrixY) || eliminate(i, j + 1, cloneMatrixY))){
+			String yId = dongWuY.getId();
+			String yaddId = dongWuAddY.getId();
+			boolean ybixu = !yId.equals("TK") && !yaddId.equals("TK");
+			boolean ykeyi = yId.equals("WZ") || yaddId.equals("WZ");
+			ykeyi = ykeyi || (dongWuY.isHasJQ() && dongWuAddY.isHasJQ());
+			ykeyi = ykeyi || eliminate(i, j, cloneMatrixY) || eliminate(i + 1, j, cloneMatrixY);
+			
+//			if (!dongWuY.getId().equals("TK") && !dongWuAddY.getId().equals("TK") && (eliminate(i, j, cloneMatrixY) || eliminate(i, j + 1, cloneMatrixY))){
+			if (ybixu && ykeyi){
 				matrixMap.put(new int[]{i, j, 1}, cloneMatrixY);
 			}else {
 				cloneMatrixY = null;

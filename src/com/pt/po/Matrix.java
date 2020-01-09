@@ -7,7 +7,8 @@ import com.pt.jo.DongWu;
 
 public class Matrix implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private DongWu[][] matrixXY = new DongWu[Constant.Y_COUNT][Constant.X_COUNT];
+//	private DongWu[][] matrixXY = new DongWu[Constant.Y_COUNT][Constant.X_COUNT];
+	private DongWu[][] matrixXY;
 
 	public DongWu getDongWu(int x, int y){
 		try {
@@ -47,6 +48,20 @@ public class Matrix implements Serializable{
 				} catch (Exception e) {
 					matrixToString += "未知\t";
 //					e.printStackTrace();
+				}
+			}
+			matrixToString += "\r";
+		}
+		return matrixToString;
+	}
+	public String toStringId() {
+		String matrixToString = "矩阵为\r";
+		for (DongWu[] dongWus : matrixXY) {
+			for (DongWu dongWu : dongWus) {
+				try {
+					matrixToString += dongWu.getId() + "\t";
+				} catch (Exception e) {
+					matrixToString += "未知\t";
 				}
 			}
 			matrixToString += "\r";

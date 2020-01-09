@@ -2,26 +2,23 @@ package com.pt.config;
 
 public class Constant {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
+	public static final String DEBUG_IMG_PATH = "../img/xxl/level/screen1.png";
 	
 	public static final String TEMP_PATH = "resources/img/temp";
 	
-//	public static final int X_START = 120;
-//	public static final int X_END = 960;
-//	public static final int X_COUNT = 7;
-//	
-//	public static final int Y_START = 670;
-//	public static final int Y_END = 1390;
-//	public static final int Y_COUNT = 6;
+	public static int WIDTH_PX = 0;
+	public static int HEIGHT_PX = 0;
+	public static int SPEED = 1;
+	
 	public static final int X_START = 0;
-	public static final int X_END = 1080;
+	public static int X_END = 0;
 	public static final int X_COUNT = 9;
 	
-	public static final int Y_START = 545;
-	public static final int Y_END = 1625;
-	public static final int Y_COUNT = 9;
+	public static int Y_START = 0;//545
+	public static int Y_END = 0;//1625
+	public static int Y_COUNT = 0;//9
 
-	public static final int SPEED = 120;
 	
 	public static final int OUTER_RING = 6;//区哪一个像素点的外圈
 	public static final int PX_MOVE = 8;//从哪一个像素点开始向里面获取数据

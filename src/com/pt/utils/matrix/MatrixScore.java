@@ -18,6 +18,7 @@ public class MatrixScore {
 		for (Entry<int[], Matrix> entry : matrixMap.entrySet()) {
 			Matrix matrix = entry.getValue();
 			int score2 = score(matrix);
+			score2 = score2 == 0 ? 10 : score2;
 			if (score2 > score) {
 				score = score2;
 				xyz = entry.getKey();

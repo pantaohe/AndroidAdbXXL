@@ -27,7 +27,7 @@ public class TestDemo {
 	public static void main(String[] args) {
 		
 		try {
-			File file = new File("resources/img/temp/screen3.png");
+			File file = new File("../img/xxl/screen3.png");
 			
 			BufferedImage image = ImageIO.read(file);
 

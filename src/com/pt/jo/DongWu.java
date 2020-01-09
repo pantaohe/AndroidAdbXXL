@@ -9,7 +9,8 @@ public class DongWu implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private boolean hasIce;
+	private boolean hasIce = false;
+	private boolean hasJQ = false;
 	
 	private RGB rgbIn;
 	private RGB rgbOut;
@@ -181,5 +182,11 @@ public class DongWu implements Serializable{
 	}
 	public void setRgbOuterRing(RGB rgbOuterRing) {
 		this.rgbOuterRing = rgbOuterRing;
+	}
+	public boolean isHasJQ() {
+		return hasJQ;
+	}
+	public void setHasJQ(boolean hasJQ) {
+		this.hasJQ = hasJQ;
 	}
 }

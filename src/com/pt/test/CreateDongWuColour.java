@@ -18,16 +18,16 @@ public class CreateDongWuColour {
 	static BufferedImage image = null;
 	static OutputStream fileTextOut = null;
 	public static void main(String[] args) throws IOException {
-		File file = new File("resources/img/temp/screen3.png");
-		File fileText = new File("resources/text/第三关小鸡.txt");
-		row[0] = "56";
+		File file = new File("E:/eclipse-workspace/tools/img/xxl/level/screen.png");
+		File fileText = new File("resources/text/第六关圈炸1111111.txt");
+		row[0] = "";
 		row[1] = "";
-		row[2] = "1";
-		row[3] = "36";
-		row[4] = "12";
-		row[5] = "24";
-		row[6] = "1";
-		row[7] = "47";
+		row[2] = "";
+		row[3] = "";
+		row[4] = "";
+		row[5] = "";
+		row[6] = "";
+		row[7] = "";
 		row[8] = "";
 		
 		
@@ -35,14 +35,14 @@ public class CreateDongWuColour {
 		image = ImageIO.read(file);
 		fileTextOut = new FileOutputStream(fileText);
 		
-		String s = "		row[0] = \"56\";\r\n" + 
+		String s = "		row[0] = \"\";\r\n" + 
 				"		row[1] = \"\";\r\n" + 
-				"		row[2] = \"1\";\r\n" + 
-				"		row[3] = \"36\";\r\n" + 
-				"		row[4] = \"12\";\r\n" + 
-				"		row[5] = \"24\";\r\n" + 
-				"		row[6] = \"1\";\r\n" + 
-				"		row[7] = \"47\";\r\n" + 
+				"		row[2] = \"\";\r\n" + 
+				"		row[3] = \"\";\r\n" + 
+				"		row[4] = \"\";\r\n" + 
+				"		row[5] = \"\";\r\n" + 
+				"		row[6] = \"01\";\r\n" + 
+				"		row[7] = \"\";\r\n" + 
 				"		row[8] = \"\"";
 		fileTextOut.write(s.getBytes());
 		action();
