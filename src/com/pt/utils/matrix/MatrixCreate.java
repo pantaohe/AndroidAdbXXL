@@ -48,22 +48,27 @@ public class MatrixCreate {
 		int start = 0;
 		int end = 0;
 		RGB rgb = null;
+		int index = 0;//当黑色的行数达到一定次数才重新计算end值
 		for (int i = Constant.HEIGHT_PX / 5; i < Constant.HEIGHT_PX * 17 / 20; i++) {
 			for (int j = 0; j < Constant.WIDTH_PX; j++) {
 				rgb = new RGB(image.getRGB(j, i));
-				if (flagStart && rgb.getR() < 40 && rgb.getG() < 70 && rgb.getB() < 120) {
+				boolean flagRGB = rgb.getR() < 40 && rgb.getG() < 70 && rgb.getB() < 120;
+				if (flagStart && flagRGB) {
 					start = i;
 					flagStart = false; flagEnd = true;
 					break;
 				}
-				if (rgb.getR() > 40 || rgb.getG() > 70 || rgb.getB() > 120) {
-					if (flagEnd) {
-						end = i;
-						flagEnd = false;
-					}
+				if (flagEnd && !flagRGB) {
+					end = i;
+					flagEnd = false;
 					break;
-				}else {
-					flagEnd = true;
+				}
+				if (!flagStart && !flagEnd && flagRGB) {
+					index++;
+					if (index > 12){
+						index = 0;
+						flagEnd = true;
+					}
 				}
 			}
 		}

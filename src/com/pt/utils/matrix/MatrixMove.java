@@ -28,48 +28,42 @@ public class MatrixMove {
 	public static void exchange(int i, int j, Matrix matrix, Map<int[], Matrix> matrixMap) {
 		try {
 
-			Matrix cloneMatrixX = ObjClonerSeiz.CloneObj(matrix);
-			Matrix cloneMatrixY = ObjClonerSeiz.CloneObj(matrix);
+			for (int k = 0; k < 2; k++) {
+				Matrix cloneMatrixX = ObjClonerSeiz.CloneObj(matrix);
 
-			DongWu dongWuX = cloneMatrixX.getDongWu(i, j);
-			dongWuX.setX(i + 1);
-			DongWu dongWuAddX = cloneMatrixX.getDongWu(i + 1, j);
-			dongWuAddX.setX(i);
-			cloneMatrixX.getMatrixXY()[i][j] = dongWuAddX;
-			cloneMatrixX.getMatrixXY()[i + 1][j] = dongWuX;
+				DongWu dongWuX = cloneMatrixX.getDongWu(i, j);
+				DongWu dongWuAddX = cloneMatrixX.getDongWu(i + 1 - k, j + k);
+				if (k == 0) {
+					dongWuX.setX(i + 1);
+					dongWuAddX.setX(i);
+				}else {
+					dongWuX.setY(j + 1);
+					dongWuAddX.setY(j);
+				}
+				cloneMatrixX.getMatrixXY()[i][j] = dongWuAddX;
+				cloneMatrixX.getMatrixXY()[i + 1 - k][j + k] = dongWuX;
 
-			String xId = dongWuX.getId();
-			String xaddId = dongWuAddX.getId();
-			boolean xbixu = !xId.equals("TK") && !xaddId.equals("TK");
-			boolean xkeyi = xId.equals("WZ") || xaddId.equals("WZ");
-			xkeyi = xkeyi || (dongWuX.isHasJQ() && dongWuAddX.isHasJQ());
-			xkeyi = xkeyi || eliminate(i, j, cloneMatrixX) || eliminate(i + 1, j, cloneMatrixX);
-			if (xbixu && xkeyi){
-				matrixMap.put(new int[]{i, j, 0}, cloneMatrixX);
-			}else {
-				cloneMatrixX = null;
+				
+				
+				String id = dongWuX.getId();
+				String addId = dongWuAddX.getId();
+				boolean bixu = !id.equals("TK") && !addId.equals("TK");
+				boolean keyiWZ = id.equals("WZ") || addId.equals("WZ");
+				boolean keyiJQ = dongWuX.isHasJQ() && dongWuAddX.isHasJQ();
+				boolean keyi = keyiWZ || keyiJQ || eliminate(i, j, cloneMatrixX) || eliminate(i + 1 - k, j + k, cloneMatrixX);
+				if (bixu && keyi){
+					int score = 0;
+					if (id.equals("WZ")) score += 15;
+					else if (dongWuX.isHasJQ()) score += 10; 
+					if (addId.equals("WZ")) score += 15;
+					else if (dongWuAddX.isHasJQ()) score += 10;
+					
+					matrixMap.put(new int[]{i, j, k, score}, cloneMatrixX);
+				}else {
+					cloneMatrixX = null;
+				}
 			}
-
-			DongWu dongWuY = cloneMatrixY.getDongWu(i, j);
-			dongWuY.setY(j + 1);
-			DongWu dongWuAddY = cloneMatrixY.getDongWu(i, j + 1);
-			dongWuAddY.setY(j);
-			cloneMatrixY.getMatrixXY()[i][j] = dongWuAddY;
-			cloneMatrixY.getMatrixXY()[i][j + 1] = dongWuY;
-
-			String yId = dongWuY.getId();
-			String yaddId = dongWuAddY.getId();
-			boolean ybixu = !yId.equals("TK") && !yaddId.equals("TK");
-			boolean ykeyi = yId.equals("WZ") || yaddId.equals("WZ");
-			ykeyi = ykeyi || (dongWuY.isHasJQ() && dongWuAddY.isHasJQ());
-			ykeyi = ykeyi || eliminate(i, j, cloneMatrixY) || eliminate(i + 1, j, cloneMatrixY);
 			
-//			if (!dongWuY.getId().equals("TK") && !dongWuAddY.getId().equals("TK") && (eliminate(i, j, cloneMatrixY) || eliminate(i, j + 1, cloneMatrixY))){
-			if (ybixu && ykeyi){
-				matrixMap.put(new int[]{i, j, 1}, cloneMatrixY);
-			}else {
-				cloneMatrixY = null;
-			}
 		} catch (Exception e) {
 		}
 	}
@@ -119,9 +113,9 @@ public class MatrixMove {
 				break;
 			}
 
-			if (flag) break;
 			try {
 				flag = dongWu.getId().equals(dongWuNext1.getId()) && dongWu.getId().equals(dongWuNext2.getId());
+				if (flag) break;
 			} catch (Exception e) {
 			}
 		}

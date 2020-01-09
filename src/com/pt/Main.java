@@ -13,22 +13,22 @@ import com.pt.utils.matrix.MatrixScore;
 public class Main {
 
 	public static void main(String[] args) {
-//		ConnAndroid.connAnd();
+		ConnAndroid.connAnd();
 		ConnAndroid.dpi();
-//		while (true) {
-//			try {
+		while (true) {
+			try {
 //				建立xxl矩阵
 				Matrix matrix = MatrixCreate.createMatrix();
 				System.out.println(matrix.toStringName());
-//				Map<int[], Matrix> matrixMap = MatrixMove.matrixMove(matrix);
-//				int[] matrixTopScore = MatrixScore.matrixTopScore(matrixMap);
-//				swipe(matrixTopScore, matrix);
-//				
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
+				Map<int[], Matrix> matrixMap = MatrixMove.matrixMove(matrix);
+				int[] matrixTopScore = MatrixScore.matrixTopScore(matrixMap);
+				swipe(matrixTopScore, matrix);
+				
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 
 	}

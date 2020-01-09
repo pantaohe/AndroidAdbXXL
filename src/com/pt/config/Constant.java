@@ -2,8 +2,8 @@ package com.pt.config;
 
 public class Constant {
 
-	public static final boolean DEBUG = true;
-	public static final String DEBUG_IMG_PATH = "../img/xxl/level/screen1.png";
+	public static final boolean DEBUG = false;
+	public static final String DEBUG_IMG_PATH = "../img/xxl/level/screen2.png";
 	
 	public static final String TEMP_PATH = "resources/img/temp";
 	

@@ -14,18 +14,18 @@ public class MatrixScore {
 
 	public static int[] matrixTopScore(Map<int[], Matrix> matrixMap) {
 		int score = 0;
-		int[] xyz = new int[3];
+		int[] xyz = new int[4];
 		for (Entry<int[], Matrix> entry : matrixMap.entrySet()) {
 			Matrix matrix = entry.getValue();
-			int score2 = score(matrix);
-			score2 = score2 == 0 ? 10 : score2;
-			if (score2 > score) {
-				score = score2;
-				xyz = entry.getKey();
+			int[] key = entry.getKey();
+			key[3] += score(matrix);
+			if (key[3] > score) {
+				score = key[3];
+				xyz = key;
 			}
 //			System.out.println(entry.getKey()[0] + "行" + entry.getKey()[1] + "列" + entry.getKey()[2] + "方向;得分：" + score);
 		}
-		return new int[] {xyz[0], xyz[1], xyz[2], score};
+		return xyz;
 	}
 
 	public static int score(Matrix matrix) {
